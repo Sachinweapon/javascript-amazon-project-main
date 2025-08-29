@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dropshipping</title>
+  <link rel="stylesheet" href="styles/dropship.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dropship.html" class="active">Dropshipping</a>
+      <button id="openCart">Cart (<span id="cartCount">0</span>)</button>
+    </nav>
+  </header>
+
+  <main>
+    <input id="searchInput" placeholder="Search products...">
+    <select id="sortSelect">
+      <option value="pop">Sort: Popular</option>
+      <option value="price-asc">Price: Low → High</option>
+      <option value="price-desc">Price: High → Low</option>
+    </select>
+    <section id="productGrid"></section>
+  </main>
+
+  <aside id="cartDrawer" class="hidden">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <p>Subtotal: <span id="subtotal">₹0</span></p>
+    <p>Shipping: <span id="shippingCost">₹0</span></p>
+    <p>Total: <span id="total">₹0</span></p>
+    <button id="checkoutBtn">Checkout</button>
+    <button id="closeCart">Close</button>
+  </aside>
+
+  <section id="checkoutPanel" class="hidden">
+    <form id="checkoutForm">
+      <input name="name" placeholder="Full name" required>
+      <input name="email" type="email" placeholder="Email" required>
+      <input name="address1" placeholder="Address line 1" required>
+      <input name="city" placeholder="City" required>
+      <input name="zip" placeholder="ZIP" required>
+      <select name="shippingOption" id="shippingOption"></select>
+      <button type="submit">Place order</button>
+      <button id="cancelCheckout" type="button">Cancel</button>
+    </form>
+    <div id="orderResult"></div>
+  </section>
+
+  <script src="scripts/dropship.js"></script>
+</body>
+</html>

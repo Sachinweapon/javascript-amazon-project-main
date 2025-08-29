@@ -1,0 +1,5 @@
+body { font-family: Arial, sans-serif; margin: 20px; }
+nav a { margin-right: 10px; }
+#productGrid { display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 10px; }
+.card { border: 1px solid #ccc; padding: 10px; border-radius: 6px; }
+.hidden { display: none; }
