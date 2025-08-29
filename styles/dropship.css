@@ -3,3 +3,10 @@ nav a { margin-right: 10px; }
 #productGrid { display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 10px; }
 .card { border: 1px solid #ccc; padding: 10px; border-radius: 6px; }
 .hidden { display: none; }
+.dropship-btn{    
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 8px;
+    margin-top: 1px;
+    margin-bottom: 15px;}
