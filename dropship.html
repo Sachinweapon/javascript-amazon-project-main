@@ -2,52 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dropshipping</title>
-  <link rel="stylesheet" href="styles/dropship.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropshipping Options</title>
+
+  <!-- Reuse your existing styles -->
+  
+  <link rel="stylesheet" href="styles/shared/general.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="dropship.html" class="active">Dropshipping</a>
-      <button id="openCart">Cart (<span id="cartCount">0</span>)</button>
-    </nav>
-  </header>
+  <!-- Amazon style header -->
+  <div class="amazon-header">
+    <div class="amazon-header-left-section">
+      <a href="index.html" class="header-link">
+        <img class="amazon-logo" src="images/amazon-logo-white.png" alt="Amazon Logo">
+        <img class="amazon-mobile-logo" src="images/amazon-mobile-logo-white.png" alt="Amazon Mobile Logo">
+      </a>
+    </div>
 
+    <div class="amazon-header-middle-section">
+      <input type="text" class="search-bar" placeholder="Search products...">
+      <button class="search-button">
+        <img class="search-icon" src="images/icons/search-icon.png" alt="Search">
+      </button>
+    </div>
+
+    <div class="amazon-header-right-section">
+      <a href="orders.html" class="header-link orders-link">
+        <span class="returns-text">Returns</span>
+        <span class="orders-text">& Orders</span>
+      </a>
+
+      <a href="checkout.html" class="header-link cart-link">
+        <img class="cart-icon" src="images/icons/cart-icon.png" alt="Cart">
+        <span class="cart-text">Cart</span>
+        <span class="cart-quantity js-cart-quantity">0</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main content -->
   <main>
-    <input id="searchInput" placeholder="Search products...">
-    <select id="sortSelect">
-      <option value="pop">Sort: Popular</option>
-      <option value="price-asc">Price: Low → High</option>
-      <option value="price-desc">Price: High → Low</option>
-    </select>
-    <section id="productGrid"></section>
+    <h1>Dropshipping Options</h1>
+    <p>Select products from our suppliers to add directly to your store.</p>
+
+    <!-- Product grid -->
+    <div id="dropship-container"></div>
   </main>
 
-  <aside id="cartDrawer" class="hidden">
-    <h2>Your Cart</h2>
-    <div id="cartItems"></div>
-    <p>Subtotal: <span id="subtotal">₹0</span></p>
-    <p>Shipping: <span id="shippingCost">₹0</span></p>
-    <p>Total: <span id="total">₹0</span></p>
-    <button id="checkoutBtn">Checkout</button>
-    <button id="closeCart">Close</button>
-  </aside>
-
-  <section id="checkoutPanel" class="hidden">
-    <form id="checkoutForm">
-      <input name="name" placeholder="Full name" required>
-      <input name="email" type="email" placeholder="Email" required>
-      <input name="address1" placeholder="Address line 1" required>
-      <input name="city" placeholder="City" required>
-      <input name="zip" placeholder="ZIP" required>
-      <select name="shippingOption" id="shippingOption"></select>
-      <button type="submit">Place order</button>
-      <button id="cancelCheckout" type="button">Cancel</button>
-    </form>
-    <div id="orderResult"></div>
-  </section>
-
+  <!-- Script to load products -->
   <script src="scripts/dropship.js"></script>
 </body>
 </html>

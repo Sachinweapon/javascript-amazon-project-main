@@ -1,12 +1,108 @@
-body { font-family: Arial, sans-serif; margin: 20px; }
-nav a { margin-right: 10px; }
-#productGrid { display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 10px; }
-.card { border: 1px solid #ccc; padding: 10px; border-radius: 6px; }
-.hidden { display: none; }
-.dropship-btn{    
-    width: 100%;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-radius: 8px;
-    margin-top: 1px;
-    margin-bottom: 15px;}
+/* -----------------------------
+   Base styles for dropship page
+------------------------------*/
+body {
+  font-family: Roboto, Arial;
+  color: rgb(33, 33, 33);
+  margin: 0;
+  background-color: #f6f6f6;
+}
+
+header {
+  background-color: white;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgb(213, 217, 217);
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.3);
+}
+
+header h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+main {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+/* -----------------------------
+   Dropship button (checkout page)
+------------------------------*/
+#dropship-btn {
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 8px;
+  margin-top: 1px;
+  margin-bottom: 15px;
+
+  font-size: 16px;
+  font-weight: 600;
+  background-color: rgb(255, 216, 20);
+  border: 1px solid rgb(252, 210, 0);
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.5);
+}
+
+#dropship-btn:hover {
+  background-color: rgb(247, 202, 0);
+  border: 1px solid rgb(242, 194, 0);
+}
+
+#dropship-btn:active {
+  background: rgb(255, 216, 20);
+  border-color: rgb(252, 210, 0);
+  box-shadow: none;
+}
+
+/* -----------------------------
+   Product grid
+------------------------------*/
+#dropship-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* Individual product card */
+.product-card {
+  background: white;
+  border: 1px solid rgb(213, 217, 217);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(213, 217, 217, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.2s ease;
+}
+
+.product-card h3 {
+  font-size: 18px;
+  margin: 0 0 8px 0;
+}
+
+.product-card p {
+  font-size: 14px;
+  margin: 0 0 10px 0;
+  color: rgb(80, 80, 80);
+}
+
+.product-card strong {
+  font-size: 16px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.product-card button {
+  margin-top: auto;
+  padding: 8px;
+  font-size: 15px;
+  width: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(213, 217, 217, 0.6);
+}

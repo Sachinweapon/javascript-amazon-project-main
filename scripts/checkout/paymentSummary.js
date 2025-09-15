@@ -62,7 +62,7 @@ export function renderPaymentSummary() {
     <button class="place-order-button button-primary">
       Place your order
     </button>
-    <button class= "dropship-btn button-primary">Dropshipping Options</button>
+    <button id= "dropship-btn" class= "button-primary">Dropshipping Options</button>
   `;
 
   document.querySelector('.js-payment-summary')

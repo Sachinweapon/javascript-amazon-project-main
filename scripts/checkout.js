@@ -4,3 +4,6 @@ import {renderPaymentSummary} from './checkout/paymentSummary.js';
 
 renderOrderSummary();
 renderPaymentSummary();
+document.getElementById("dropship-btn").addEventListener("click", () => {
+  window.location.href = "dropship.html";
+});
