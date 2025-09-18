@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
+  <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
+  <style>
+    .success-wrap { max-width: 1000px; margin: 40px auto; text-align: center; padding: 0 16px; }
+    .tick { width: 120px; height: 120px; border-radius: 50%; background: #4BB543; display: inline-flex; align-items: center; justify-content: center; transform: scale(0); animation: pop 0.45s ease forwards; margin-bottom: 18px; }
+    .tick svg { width: 64px; height: 64px; }
+    @keyframes pop { to { transform: scale(1); } }
+    .order-summary-panel { margin-top: 20px; text-align: left; border: 1px solid #ddd; border-radius: 8px; padding: 16px; background: #fff; }
+    .order-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #f0f0f0; align-items:center; }
+    .order-item img { width:72px; height:72px; object-fit:cover; border-radius:6px; }
+    .order-item .meta { flex:1; }
+    .badge { font-size:12px; color:#555; padding:4px 8px; border-radius:12px; background:#f7f7f7; display:inline-block; margin-top:6px; }
+    .final-row { display:flex; justify-content:space-between; margin-top:16px; font-weight:700; font-size:18px; }
+    .continue-btn { margin-top:16px; background:#ffd814; border:1px solid #fcd200; padding:10px 16px; border-radius:8px; color:#111; font-weight:600; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div class="checkout-header">
+    <div class="header-content">
+      <div class="checkout-header-left-section">
+        <a href="amazon.html">
+          <img class="amazon-logo" src="images/amazon-logo.png">
+          <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
+        </a>
+      </div>
+      <div class="checkout-header-middle-section">Order complete</div>
+      <div class="checkout-header-right-section">
+        <img src="images/icons/checkout-lock-icon.png">
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="success-wrap">
+      <div class="tick" aria-hidden="true">
+        <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+          <path fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M14 27 l7 7 l17 -17"></path>
+        </svg>
+      </div>
+      <h1 style="color:#2E7D32">Your order has been placed</h1>
+      <p>Thanks — your order is confirmed. You will receive an email confirmation shortly.</p>
+
+      <div id="order-summary" class="order-summary-panel"></div>
+
+      <button id="continue-shopping" class="continue-btn">Continue Shopping</button>
+    </div>
+  </main>
+
+  <script>
+    const storedCurrent = JSON.parse(localStorage.getItem('currentOrder'));
+    const ordersArr = JSON.parse(localStorage.getItem('orders')) || [];
+    const order = storedCurrent || (ordersArr.length ? ordersArr[ordersArr.length - 1] : null);
+    const container = document.getElementById('order-summary');
+
+    if (!order) {
+      container.innerHTML = '<p>No order found.</p>';
+    } else {
+      const items = order.items || [];
+      let itemsTotal = 0;
+      const lines = items.map(it => {
+        const price = (it.priceCents || 0) / 100;
+        itemsTotal += price * it.quantity;
+        return `
+          <div class="order-item">
+            <img src="${it.image || 'images/placeholder.png'}" alt="${it.name}">
+            <div class="meta">
+              <div style="font-weight:600">${it.name}</div>
+              <div style="color:#666; margin-top:6px">Quantity: ${it.quantity}</div>
+              <div class="badge">${it.dropship ? 'Dropshipped Item' : 'Normal Item'}</div>
+            </div>
+            <div style="font-weight:700">$${(price * it.quantity).toFixed(2)}</div>
+          </div>
+        `;
+      });
+
+      const delivery = order.deliveryOption || order.deliveryOptionId || 'Standard';
+      const payment = order.paymentMethod || order.payment || 'Not specified';
+      const summary = order.summary || {};
+      const totalDisplay = summary.total ? `$${summary.total.toFixed(2)}` : `$${itemsTotal.toFixed(2)}`;
+
+      container.innerHTML = `
+        ${lines.join('')}
+        <div class="final-row">
+          <div>Delivery</div>
+          <div>${delivery}</div>
+        </div>
+        <div class="final-row">
+          <div>Payment</div>
+          <div>${payment}</div>
+        </div>
+        <div class="final-row">
+          <div>Final Total</div>
+          <div>${totalDisplay}</div>
+        </div>
+      `;
+    }
+
+    document.getElementById('continue-shopping').addEventListener('click', () => {
+      window.location.href = 'amazon.html';
+    });
+  </script>
+</body>
+</html>

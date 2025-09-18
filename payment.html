@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
+  <style>
+    body { background:#f5f5f5; font-family:'Roboto',sans-serif; }
+    .payment-container { max-width:760px; margin:36px auto; padding:22px; background:#fff; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.06); }
+    .section-title { font-size:22px; font-weight:700; margin-bottom:18px; }
+    .payment-option { display:flex; align-items:center; justify-content:space-between; padding:12px; border-radius:10px; border:1px solid #e7e7e7; margin-bottom:12px; cursor:pointer; }
+    .payment-option-left { display:flex; align-items:center; gap:12px; }
+    .payment-option img { width:36px; height:36px; object-fit:contain; }
+    .upi-dropdown { display:none; margin-top:10px; padding-left:6px; }
+    .upi-app { display:flex; align-items:center; justify-content:space-between; padding:10px; border-radius:8px; border:1px solid #f0f0f0; margin-bottom:10px; }
+    .upi-app img { width:36px; height:36px; }
+    #upiId { width:100%; padding:10px; border-radius:8px; border:1px solid #d0d0d0; box-sizing:border-box; }
+    .pay-btn { width:100%; padding:14px; border-radius:10px; background:#ffd814; border:1px solid #fcd200; font-weight:700; cursor:pointer; margin-top:14px; }
+    .pay-btn:hover { background:#f7ca00; }
+  </style>
+</head>
+<body>
+  <div class="checkout-header">
+    <div class="header-content">
+      <div class="checkout-header-left-section">
+        <a href="amazon.html">
+          <img class="amazon-logo" src="images/amazon-logo.png">
+        </a>
+      </div>
+      <div class="checkout-header-middle-section">Payment</div>
+      <div class="checkout-header-right-section">
+        <img src="images/icons/checkout-lock-icon.png">
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="payment-container">
+      <div class="section-title">Select Payment Method</div>
+
+      <label class="payment-option">
+        <div class="payment-option-left">
+          <input type="radio" name="payment" value="Cash on Delivery">
+          <span>Cash on Delivery</span>
+        </div>
+        <div></div>
+      </label>
+
+      <label class="payment-option" id="upiToggle">
+        <div class="payment-option-left">
+          <input type="radio" name="payment" value="UPI">
+          <img src="images/icons/upi.png" alt="UPI"> <span>UPI</span>
+        </div>
+        <div></div>
+      </label>
+
+      <div id="upiOptions" class="upi-dropdown">
+        <label class="upi-app">
+          <div style="display:flex;align-items:center;gap:12px"><input type="radio" name="upiApp" value="PhonePe"><img src="images/icons/phonepe.png" alt="PhonePe"><span>PhonePe</span></div>
+        </label>
+        <label class="upi-app">
+          <div style="display:flex;align-items:center;gap:12px"><input type="radio" name="upiApp" value="Paytm"><img src="images/icons/paytm.png" alt="Paytm"><span>Paytm</span></div>
+        </label>
+        <label class="upi-app">
+          <div style="display:flex;align-items:center;gap:12px"><input type="radio" name="upiApp" value="Navi"><img src="images/icons/navi.png" alt="Navi"><span>Navi</span></div>
+        </label>
+        <div style="margin-top:10px">
+          <input id="upiId" type="text" placeholder="Enter your UPI ID">
+        </div>
+      </div>
+
+      <button id="payBtn" class="pay-btn">Confirm & Pay</button>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const upiOptionsEl = document.getElementById('upiOptions');
+      const paymentRadios = document.querySelectorAll('input[name="payment"]');
+
+      paymentRadios.forEach(r => {
+        r.addEventListener('change', () => {
+          if (r.value === 'UPI' && r.checked) {
+            upiOptionsEl.style.display = 'block';
+          } else if (r.checked) {
+            upiOptionsEl.style.display = 'none';
+            document.querySelectorAll('input[name="upiApp"]').forEach(i => i.checked = false);
+            document.getElementById('upiId').value = '';
+          }
+        });
+      });
+
+      document.getElementById('payBtn').addEventListener('click', () => {
+        const selectedMain = document.querySelector('input[name="payment"]:checked');
+        if (!selectedMain) {
+          alert('Please select a payment method.');
+          return;
+        }
+
+        let paymentMethod = selectedMain.value;
+
+        if (paymentMethod === 'UPI') {
+          const selectedApp = document.querySelector('input[name="upiApp"]:checked');
+          const upiId = document.getElementById('upiId').value.trim();
+          if (!selectedApp || !upiId) {
+            alert('Please choose a UPI app and enter UPI ID.');
+            return;
+          }
+          paymentMethod = `${selectedApp.value} (UPI: ${upiId})`;
+        }
+
+        const currentOrderRaw = localStorage.getItem('currentOrder');
+        const currentOrder = currentOrderRaw ? JSON.parse(currentOrderRaw) : { items: JSON.parse(localStorage.getItem('cart') || '[]') };
+
+        currentOrder.paymentMethod = paymentMethod;
+        currentOrder.placedAt = new Date().toISOString();
+
+        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        orders.push(currentOrder);
+        localStorage.setItem('orders', JSON.stringify(orders));
+        localStorage.setItem('currentOrder', JSON.stringify(currentOrder));
+        localStorage.removeItem('cart');
+
+        window.location.href = 'ordersuccess.html';
+      });
+    })();
+  </script>
+</body>
+</html>

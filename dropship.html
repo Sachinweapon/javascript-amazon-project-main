@@ -1,55 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dropshipping Options</title>
-
-  <!-- Reuse your existing styles -->
-  
-  <link rel="stylesheet" href="styles/shared/general.css">
-</head>
-<body>
-  <!-- Amazon style header -->
-  <div class="amazon-header">
-    <div class="amazon-header-left-section">
-      <a href="index.html" class="header-link">
-        <img class="amazon-logo" src="images/amazon-logo-white.png" alt="Amazon Logo">
-        <img class="amazon-mobile-logo" src="images/amazon-mobile-logo-white.png" alt="Amazon Mobile Logo">
-      </a>
+<html>
+  <head>
+    <title>Dropshipping</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/shared/general.css">
+    <link rel="stylesheet" href="styles/pages/checkout/checkout-header.css">
+    <link rel="stylesheet" href="styles/pages/checkout/checkout.css">
+    <link rel="stylesheet" href="styles/dropship.css">
+  </head>
+  <body>
+    <div class="checkout-header">
+      <div class="header-content">
+        <div class="checkout-header-left-section">
+          <a href="amazon.html">
+            <img class="amazon-logo" src="images/amazon-logo.png">
+            <img class="amazon-mobile-logo" src="images/amazon-mobile-logo.png">
+          </a>
+        </div>
+        <div class="checkout-header-middle-section">
+          Dropshipping (<a class="return-to-home-link" href="amazon.html"><span class="js-cart-quantity">0</span> items</a>)
+        </div>
+        <div class="checkout-header-right-section">
+          <img src="images/icons/checkout-lock-icon.png">
+        </div>
+      </div>
     </div>
 
-    <div class="amazon-header-middle-section">
-      <input type="text" class="search-bar" placeholder="Search products...">
-      <button class="search-button">
-        <img class="search-icon" src="images/icons/search-icon.png" alt="Search">
-      </button>
+    <div class="main">
+      <div class="page-title">Select items to dropship</div>
+      <p id="select-info" style="color:#d32f2f; font-weight:500; margin-bottom:10px;">
+        Please select at least one product before applying margin.
+      </p>
+      <div class="checkout-grid">
+        <div class="order-summary js-dropship-summary"></div>
+        <div class="payment-summary">
+          <h2 class="summary-title">Add Margin</h2>
+          <input type="number" id="margin" class="input-box" placeholder="Enter % margin">
+          <button id="apply-margin" disabled>Apply Margin</button>
+          <div id="price-summary"></div>
+          <div id="address-section" style="display:none;">
+            <h2 class="summary-title">Shipping Address</h2>
+            <input type="text" id="normal-address" class="input-box" placeholder="Shipping Address">
+            <h3 class="summary-title">Ship dropshipped items to same address?</h3>
+            <label><input type="radio" name="sameAddress" value="yes" checked> Yes</label>
+            <label><input type="radio" name="sameAddress" value="no"> No</label>
+            <div id="dropship-address-container" style="display:none; margin-top:10px;">
+              <input type="text" id="dropship-address" class="input-box" placeholder="Address for dropshipped items">
+            </div>
+            <button id="confirm-order">Confirm Order</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="amazon-header-right-section">
-      <a href="orders.html" class="header-link orders-link">
-        <span class="returns-text">Returns</span>
-        <span class="orders-text">& Orders</span>
-      </a>
-
-      <a href="checkout.html" class="header-link cart-link">
-        <img class="cart-icon" src="images/icons/cart-icon.png" alt="Cart">
-        <span class="cart-text">Cart</span>
-        <span class="cart-quantity js-cart-quantity">0</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Main content -->
-  <main>
-    <h1>Dropshipping Options</h1>
-    <p>Select products from our suppliers to add directly to your store.</p>
-
-    <!-- Product grid -->
-    <div id="dropship-container"></div>
-  </main>
-
-  <!-- Script to load products -->
-  <script src="scripts/dropship.js"></script>
-</body>
+    <script type="module" src="scripts/dropship.js"></script>
+  </body>
 </html>
